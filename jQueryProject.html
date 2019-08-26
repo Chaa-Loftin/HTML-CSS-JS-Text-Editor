@@ -1,0 +1,269 @@
+<html>
+    
+    <head>
+        
+        <title> jQueryProject</title>
+        
+        <script type = "text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
+        
+        
+        <!--apparently the fadeOut() function changes the opacity of an element to none, so i'm going to try to use that with if statements.-->
+              
+    
+        <style type = "text/css">
+            
+            body {
+                
+                margin: 0 auto;
+                padding: 0;
+                background-image: url(stock2.jpg);
+                background-size:cover;
+            }
+            
+            html {
+                
+                box-sizing: border-box;
+                font-family: Arial,Helvetica,sans-serif;
+            }
+            
+            div:focus {
+                
+                outline: none;
+            }
+            
+            #nav-container {
+                
+                display:flex;
+                height: 3rem;
+                background-color: #edeffc;
+                align-items: center;
+                
+            } 
+            
+            #nav-container ul {
+                
+                list-style:none;
+                display:flex;
+                font-size: 1rem;
+                text-decoration: none;
+                width: 80%;
+                justify-content: center;
+
+            }
+            
+            
+            
+            /*never assign a bunch of bs to the li.  it will ruin your hover and change in bg color*/
+            
+            #nav-container a {
+                
+                text-decoration: none;
+                color: black;
+                border-style: solid;
+                border-color: black;
+                border-radius: 15%;
+                border-width: 1px;
+                padding: 3px;
+                margin:0;
+                background-color: #07aeed;
+                
+                
+            }
+            
+            #nav-container a:hover{
+                
+                background-color: black;
+                color: #07aeed;
+                cursor: default;
+            }
+            
+            #codeplayer {
+                
+                font-size: 1.3rem;
+            }
+        
+            #main-container {
+                
+                display: grid;
+                width:100%;
+                grid-template-columns: repeat(4, 1fr);
+                height: 80%;
+                background: rgba(0,0,0,0.5);
+                color: #fff;
+            }
+            
+            .grid-box {
+                
+                border: 1px solid white;
+                height: 100%;
+                width: 100%;
+                color: white;
+                max-width: 360px;
+                color: white;
+            }
+            
+            
+
+            
+            
+        </style>
+        
+    </head>
+    
+    <body>
+        
+        <nav id = "nav-container">
+            
+            <span id = "codeplayer">
+                Codeplayer
+            </span>
+            
+            <ul>
+            
+                <li> 
+                    
+                    <a href = "#" id = "html-btn">
+                        HTML
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    
+                    <a href = "#" id = "css-btn">
+                        CSS
+                    </a>
+                    
+                </li>
+                
+                <li>
+                    
+                    <a href = "#" id = "js-btn">
+                        Javascript
+                    </a>
+                    
+                </li>
+                
+                <li >
+                    
+                    <a href = "#" id = "output-btn">
+                        Output
+                    </a>
+                    
+                </li>
+            
+            </ul>
+        
+        
+        </nav>
+        
+        <div id = "main-container">
+            
+            
+            
+            <div id = "html-section" class = "grid-box" contenteditable="true">
+                
+            
+            </div>
+            
+            <div id = "css-section" class = "grid-box" contenteditable="true">
+                
+            
+            </div>
+            
+            <div id = "js-section" class = "grid-box" contenteditable="true">
+                
+            
+            </div>
+            
+            <iframe id = "output-section" class = "grid-box">
+                
+                
+            
+            </iframe>
+        
+        </div>
+        
+        <script type = text/javascript>
+            
+            /* So basically this section of jQuery checks to see if the object's display is set to none or not. If it is set to none, the element will appear when the button is clicked.  It will disappear if the elemetnts display isn't set to none. */
+            
+            $("#html-btn").click(function () {
+                
+                if($("#html-section").css("display") !== "none") {
+                
+                    $("#html-section").fadeOut("slow");
+                    
+                } else {
+                    
+                    $("#html-section").fadeIn("");
+                }
+                
+            });
+            
+            $("#css-btn").click(function() {
+                
+                if($("#css-section").css("display") !== "none") {
+                    
+                     $("#css-section").fadeOut("slow");
+                }
+                else {
+                    
+                    $("#css-section").fadeIn("slow");
+                }
+                
+            });
+            
+            $("#js-btn").click(function() {
+                
+                if($("#js-section").css("display") !== "none") {
+                    
+                    $("#js-section").fadeOut("slow");
+                } else {
+                    
+                    $("#js-section").fadeIn("slow");
+                }
+            });
+            
+            $("#output-btn").click(function() {
+                
+                if($("#output-section").css("display") !== ("none")) {
+                    
+                    $("#output-section").fadeOut("slow");
+                } else {
+                    
+                    $("#output-section").fadeIn("slow");
+                }
+            });
+            
+            /* this will be my JS section that will save the user's text input via localStorage at a set interal via an interval function */
+            
+            document.getElementById("html-section").innerHTML = 
+                localStorage["html"] || "Insert HTML text"; //defualt text
+            
+            document.getElementById("css-section").innerHTML = 
+                localStorage["css"] || "Insert CSS text"; //more defalt text
+            
+            document.getElementById("js-section").innerHTML = 
+                localStorage["js"] ||
+                " Insert JS text"; //default txt again
+            
+            //Set an interval function that will auto save innerHTML of each div
+            
+            setInterval(function() {
+                localStorage["html"] = document.getElementById("html-section").innerHTML; //saves the innerHTML of the html-section
+                
+                localStorage["js"] =
+                    document.getElementById("js-section").innerHTML;
+                
+                localStorage["css"] =
+                    document.getElementById("css-section").innerHTML;
+                
+                }, 1000);
+
+            
+        </script>
+    
+    </body>
+
+</html>

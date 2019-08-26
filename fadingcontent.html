@@ -1,0 +1,135 @@
+<html>
+    
+    <head>
+        
+        <title>jquery2</title>
+        
+        <script type = "text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
+        
+        
+        <style type = "text/css">
+            
+            #circle{
+                
+                width: 150px;
+                height: 150px;
+                border-radius: 50%;
+                background-color: blue;
+                margin: 10px;
+            }
+            
+            .square{
+                
+                width: 150px;
+                height: 150px;
+                background-color: red;
+                margin: 10px;
+            }
+            
+            #text{
+                
+                display: block;
+            }
+        
+        </style>
+    
+    </head>
+    
+    <!-- many of these functions have other parameters        than can be used along with them. ex:                fadeOut("slow")
+
+        $(name).fadeOut() will make anything fade off screen and be removed;
+
+        $(name).hide() will make 'name' dissapear just like display = none;
+
+        callBack functions are used here as well. They are basically a funciton that isn't executed until the main function ends
+
+        with the if else statement you could have also set a boolean variable to true and used a callback function to either set it to true or false while fading in or out
+
+        var textShowing = true;
+
+        $("#toggle").click(function(){
+        
+            if (textShowing) {
+            
+                $("#text).fadeOut(function(){
+
+                    textShowing = false;
+                
+                });
+
+            }else {
+            
+                $("#text").fadeIn(function(){
+
+                textShowing = true;
+
+                });
+
+            }
+    
+        })
+    -->
+    
+    <body>
+        
+        <div id = "circle"></div>
+        
+        <div class = "square"></div>
+        
+        <div class = "square"></div>
+        
+        <p id = "par">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        
+        <p id = "appear">Suprise Motherf#cker!</p>
+        
+        <button id = "button">Make it fade</button>
+        
+        <p id = "text">This is some text negrumps</p>
+        
+        <button id = "toggle">toggle button</button>
+        
+        
+        
+        <script type = "text/javascript">
+            
+            $("#appear").css("display","none");
+            
+            $("div").click(function(){
+                
+                $(this).fadeOut("slow", function(){
+                    
+                    alert("fadeOut has finished")
+                    
+                })
+            });
+            
+            $("#button").click(function(){
+                
+                $("#par").fadeOut("slow",function(){
+                    
+                    $("#appear").fadeIn();
+                })
+            });
+            
+            $("#toggle").click(function(){
+                
+                if($("#text").css("display") == "none"){
+                    
+                    $("#text").fadeIn();
+                    
+                }else{
+                    
+                    $("#text").fadeOut();
+                    
+                }
+                
+                
+            })
+            
+            
+        
+        </script>
+    
+    </body>
+
+</html>
