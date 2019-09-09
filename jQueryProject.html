@@ -2,21 +2,17 @@
     
     <head>
         
-        <title> jQueryProject</title>
+        <title> jQueryProject </title>
         
         <script type = "text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
         
-        
-        <!--apparently the fadeOut() function changes the opacity of an element to none, so i'm going to try to use that with if statements.-->
-              
-    
         <style type = "text/css">
             
             body {
                 
                 margin: 0 auto;
                 padding: 0;
-                background-image: url(stock2.jpg);
+                background-image: url(stock2.jpg); 
                 background-size:cover;
             }
             
@@ -27,6 +23,11 @@
             }
             
             div:focus {
+                
+                outline: none;
+            }
+            
+            textarea:focus {
                 
                 outline: none;
             }
@@ -50,8 +51,6 @@
                 justify-content: center;
 
             }
-            
-            
             
             /*never assign a bunch of bs to the li.  it will ruin your hover and change in bg color*/
             
@@ -80,6 +79,7 @@
             #codeplayer {
                 
                 font-size: 1.3rem;
+                font-weight: bold;
             }
         
             #main-container {
@@ -97,13 +97,17 @@
                 border: 1px solid white;
                 height: 100%;
                 width: 100%;
-                color: white;
                 max-width: 360px;
                 color: white;
+                background: rgba(0,0,0,0.5);
+                font-size: 0.8rem;
+                
+                
             }
             
             
-
+            
+            
             
             
         </style>
@@ -122,7 +126,7 @@
             
                 <li> 
                     
-                    <a href = "#" id = "html-btn">
+                    <a href = "#" id = "html-btn" class = "toggle">
                         HTML
                     </a>
                     
@@ -130,7 +134,7 @@
             
                 <li>
                     
-                    <a href = "#" id = "css-btn">
+                    <a href = "#" id = "css-btn" class = "toggle">
                         CSS
                     </a>
                     
@@ -138,7 +142,7 @@
                 
                 <li>
                     
-                    <a href = "#" id = "js-btn">
+                    <a href = "#" id = "js-btn" class = "toggle">
                         Javascript
                     </a>
                     
@@ -146,7 +150,7 @@
                 
                 <li >
                     
-                    <a href = "#" id = "output-btn">
+                    <a href = "#" id = "output-btn" class = "toggle">
                         Output
                     </a>
                     
@@ -161,30 +165,29 @@
             
             
             
-            <div id = "html-section" class = "grid-box" contenteditable="true">
-                
+            <textarea id = "html-section" class = "grid-box" contenteditable="true"><p id = "paragraph"> Hello World !</p></textarea>
             
-            </div>
+            <textarea id = "css-section" class = "grid-box" contenteditable="true">p {color: white}</textarea>
             
-            <div id = "css-section" class = "grid-box" contenteditable="true">
-                
-            
-            </div>
-            
-            <div id = "js-section" class = "grid-box" contenteditable="true">
-                
-            
-            </div>
+            <textarea id = "js-section" class = "grid-box" contenteditable="true">document.getElementById("paragraph").innerHTML = "hello there!"</textarea>
             
             <iframe id = "output-section" class = "grid-box">
-                
-                
-            
             </iframe>
         
         </div>
         
         <script type = text/javascript>
+            
+            //function used to update output 
+            
+            function updateOutput() {
+                
+                 $("iframe").contents().find("html").html("<html><head><style type = 'text/css'>" + $("#css-section").val() + "</style></head><body>" +$("#html-section").val() + "</body></html>");
+                
+                //this will eval the content of the js section and implements it in the output-section. Generally it isn't safe to use on an actual site becuase someone could gain access to your server. This won't be used by the general public so the security doesn't have to be top-notch.
+                
+                document.getElementById("output-section").contentWindow.eval($("#js-section").val());
+            }
             
             /* So basically this section of jQuery checks to see if the object's display is set to none or not. If it is set to none, the element will appear when the button is clicked.  It will disappear if the elemetnts display isn't set to none. */
             
@@ -230,13 +233,23 @@
                 if($("#output-section").css("display") !== ("none")) {
                     
                     $("#output-section").fadeOut("slow");
+                    
                 } else {
                     
                     $("#output-section").fadeIn("slow");
                 }
             });
             
-            /* this will be my JS section that will save the user's text input via localStorage at a set interal via an interval function */
+            updateOutput();
+
+            $("textarea").on('change keyup paste', function(){
+                
+                updateOutput();
+                
+            });
+            
+            
+            /* //decided not to use this
             
             document.getElementById("html-section").innerHTML = 
                 localStorage["html"] || "Insert HTML text"; //defualt text
@@ -245,8 +258,7 @@
                 localStorage["css"] || "Insert CSS text"; //more defalt text
             
             document.getElementById("js-section").innerHTML = 
-                localStorage["js"] ||
-                " Insert JS text"; //default txt again
+                localStorage["js"] || "Insert JS text"; //default txt again
             
             //Set an interval function that will auto save innerHTML of each div
             
@@ -260,7 +272,9 @@
                     document.getElementById("css-section").innerHTML;
                 
                 }, 1000);
-
+            
+            
+*/
             
         </script>
     
